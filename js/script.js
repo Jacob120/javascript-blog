@@ -32,6 +32,7 @@
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles';
 
+  // eslint-disable-next-line no-inner-declarations
   function generateTitleLinks() {
     /* [DONE] remove contents of titleList */
     const titleList = document.querySelector(optTitleListSelector);
