@@ -77,7 +77,7 @@
   /* TAGS COUNT */
   // eslint-disable-next-line no-inner-declarations
   function calculateTagsParams(tags) {
-    const params = { max: 0, min: 999999 };
+    const params = { max: 0, min: 99999 };
     for (let tag in tags) {
       params.max = Math.max(tags[tag], params.max);
       params.min = Math.min(tags[tag], params.max);
@@ -109,10 +109,10 @@
       /* START LOOP: for each tag */
       for (let tag of articleTagsArray) {
         /* generate HTML of the link */
-        const linkHTML =
+        const tagHTML =
           '<li><a href ="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
         /* add generated code to html variable */
-        html = html + linkHTML;
+        html = html + tagHTML;
         /* [NEW] check if this link is NOT already in allTags */
         if (!allTags[tag]) {
           /* [NEW] add generated code to allTags array */
@@ -129,24 +129,24 @@
     }
     /* [NEW] find list of tags in right column */
     const tagList = document.querySelector(optTagsListSelector);
-    /* [NEW] tags parameters calculator  */
-    const tagsParams = calculateTagsParams(allTags);
-    console.log('tagsParams:', tagsParams);
+
     /* [NEW] create variable for all links HTML code */
     let allTagsHTML = '';
+    /* [NEW] tags parameters calculator  */
+    const tagsParams = calculateTagsParams(allTags);
     /* [NEW] START LOOP: for each tag in allTags: */
     for (let tag in allTags) {
       /* [NEW] generate code of a link and add it to allTagsHTML */
       const tagLinkHTML =
         '<li><a href="#tag-' +
         tag +
+        '" class="' +
         calculateTagClass(allTags[tag], tagsParams) +
         '">' +
         tag +
         ' ' +
         '</a></li>';
       allTagsHTML += tagLinkHTML;
-      console.log('tagLinkHTML:', tagLinkHTML);
       /* [NEW] END LOOP: for each tag in allTags: */
     }
     /* [NEW] add HTML from allTagsHTML to tagList */
