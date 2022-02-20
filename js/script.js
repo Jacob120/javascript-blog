@@ -24,6 +24,8 @@
     targetArticle.classList.add('active');
   };
 
+  /* GENERATE TITLE LIST */
+
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
@@ -35,9 +37,6 @@
     /* [DONE] remove contents of titleList */
     const titleList = document.querySelector(optTitleListSelector);
     titleList.innerHTML = '';
-
-    // titleList.remove(".titles li"); // Usuń wszystkie elementy  <li> wewnątrz tagu <ul class='list title'>
-
     /* [DONE] find all the articles and save them to variable: articles  */
     const articles = document.querySelectorAll(
       optArticleSelector + customSelector
@@ -59,7 +58,6 @@
         '"><span>' +
         articleTitle +
         '</span></a></li>';
-
       /* [DONE] insert link into titleList */
       html = html + linkHTML;
     }
@@ -103,6 +101,8 @@
     }
     /* END LOOP: for every article: */
   }
+
+  /* GENERATE TAGS */
 
   generateTags();
 
@@ -155,8 +155,6 @@
     const articles = document.querySelectorAll(optArticleSelector);
     /* START LOOP for every article */
     for (let article of articles) {
-      /* find author wrapper */
-      const authorWrapper = article.querySelector(optArticleAuthorSelector);
       /* make html variable with empty string */
       let html = '';
       /* get author from .data-author attribute */
@@ -176,6 +174,8 @@
       /* END LOOP: for every article */
     }
   }
+
+  /* GENERATE AUTHOR */
 
   generateAuthor();
 
