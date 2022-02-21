@@ -1,5 +1,30 @@
 'use strict';
 {
+  /* OPTIONS */
+
+  const optArticleSelector = '.post',
+    optTitleSelector = '.post-title',
+    optTitleListSelector = '.titles',
+    optArticleTagsSelector = '.post-tags .list',
+    optTagsListSelector = '.tags.list',
+    optArticleAuthorSelector = '.post-author',
+    optAuthorsListSelector = '.authors.list',
+    optCloudClassCount = 5,
+    optCloudClassPrefix = 'tag-size-';
+
+  /* const opt = {
+      articleSelector: '.post',
+      titleSelector: '.post-title',
+      titleListSelector: '.titles',
+      articleTagsSelector: '.post-tags .list',
+      tagsListSelector: '.tags.list',
+      articleAuthorSelector: '.post-author',
+      authorsListSelector: '.authors.list',
+      cloudClassCount: 5,
+      cloudClassPrefix: 'tag-size-'
+    }; */
+
+  /* CLICK HANDLER */
   const titleClickHandler = function (event) {
     event.preventDefault();
     const clickedElement = this;
@@ -25,16 +50,6 @@
   };
 
   /* GENERATE TITLE LIST */
-
-  const optArticleSelector = '.post',
-    optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles',
-    optArticleTagsSelector = '.post-tags .list',
-    optTagsListSelector = '.tags.list',
-    optArticleAuthorSelector = '.post-author',
-    optAuthorsListSelector = '.authors.list',
-    optCloudClassCount = 5,
-    optCloudClassPrefix = 'tag-size-';
 
   // eslint-disable-next-line no-inner-declarations
   function generateTitleLinks(customSelector = '') {
@@ -76,6 +91,7 @@
   generateTitleLinks();
 
   /* TAGS COUNT */
+
   // eslint-disable-next-line no-inner-declarations
   function calculateTagsParams(tags) {
     const params = { max: 0, min: 99999 };
