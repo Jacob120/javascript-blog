@@ -1,5 +1,19 @@
 'use strict';
 {
+  /* TEMPLATES */
+
+  const templates = {
+    articleLink: Handlebars.compile(
+      document.querySelector('#template-article-link').innerHTML
+    ),
+    tagLink: Handlebars.compile(
+      document.querySelector('#template-tag-link').innerHTML
+    ),
+    authorLink: Handlebars.compile(
+      document.querySelector('#template-author-link').innerHTML
+    ),
+  };
+
   /* OPTIONS */
 
   const optArticleSelector = '.post',
@@ -71,12 +85,8 @@
       /*[DONE] get the title from the title element */
       const articleTitle = articleTitleElement.innerHTML;
       /* [DONE] create HTML of the link */
-      const linkHTML =
-        '<li><a href="#' +
-        articleId +
-        '"><span>' +
-        articleTitle +
-        '</span></a></li>';
+      const linkHTMLData = { id: articleId, title: articleTitle };
+      const linkHTML = templates.articleLink(linkHTMLData);
       /* [DONE] insert link into titleList */
       html = html + linkHTML;
     }
@@ -132,8 +142,11 @@
       /* START LOOP: for each tag */
       for (let tag of articleTagsArray) {
         /* generate HTML of the link */
-        const tagHTML =
-          '<li><a href ="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
+        // const tagHTML =                                                         !! remove
+        //   '<li><a href ="#tag-' + tag + '"><span>' + tag + '</span></a></li>';  !! remove
+        const tagHTMLData = { tagsId: tag, tagName: tag };
+        const tagHTML = templates.tagLink(tagHTMLData);
+
         /* add generated code to html variable */
         html = html + tagHTML;
         /* [NEW] check if this link is NOT already in allTags */
@@ -237,14 +250,19 @@
       /* get author from .data-author attribute */
       const articleAuthor = article.getAttribute('data-author');
       /* generate HTML of the link */
-      const authorLink =
-        '<a href="#author-' +
-        articleAuthor +
-        '"><span>' +
-        articleAuthor +
-        '</span></a>';
+      // const authorLink =
+      //   '<a href="#author-' +
+      //   articleAuthor +
+      //   '"><span>' +
+      //   articleAuthor +
+      //   '</span></a>';
+      const authorHTMLData = {
+        authorId: articleAuthor,
+        authorName: articleAuthor,
+      };
+      const authorHTML = templates.authorLink(authorHTMLData);
       /* add generated code to html variable */
-      html = html + '' + authorLink;
+      html = html + '' + authorHTML;
       /* [NEW] check is this link is NOT already in allAuthors */
       if (!allAuthors[articleAuthor]) {
         /* [NEW] add generated code to allTags array */
