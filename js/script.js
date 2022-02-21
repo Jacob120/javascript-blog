@@ -288,6 +288,7 @@
       /* [NEW] generate code of a link and it to allAuthorsHTML */
       allAuthorsData.allAuthors.push({
         author: author,
+        count: allAuthors[author],
         // count: allAuthors[author],
       });
       /* [NEW] END LOOP: for each author in allAuthors */
