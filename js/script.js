@@ -33,7 +33,7 @@
     optArticleAuthorSelector = '.post-author',
     optTagsListSelector = '.tags.list',
     optCloudClassCount = 5,
-    optCloudClassprefix = 'tag-size-';
+    optCloudClassPrefix = 'tag-size-';
 
   // eslint-disable-next-line no-inner-declarations
   function generateTitleLinks(customSelector = '') {
@@ -84,8 +84,14 @@
     }
     return params;
   }
-
-  function calculateTagClass(count, params) {}
+  // eslint-disable-next-line no-inner-declarations
+  function calculateTagClass(count, params) {
+    const normalizedCount = count - params.min;
+    const normalizedMax = params.max - params.min;
+    const percentage = normalizedCount / normalizedMax;
+    const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+    return optCloudClassPrefix + classNumber;
+  }
 
   /* GENERATE TAGS  */
 
@@ -120,6 +126,7 @@
         } else {
           allTags[tag]++;
         }
+
         /* END LOOP: for each tag */
       }
       /* insert HTML of all the links into the tags wrapper */
