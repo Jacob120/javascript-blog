@@ -30,8 +30,9 @@
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optArticleTagsSelector = '.post-tags .list',
-    optArticleAuthorSelector = '.post-author',
     optTagsListSelector = '.tags.list',
+    optArticleAuthorSelector = '.post-author',
+    optAuthorsListSelector = '.authors.list',
     optCloudClassCount = 5,
     optCloudClassPrefix = 'tag-size-';
 
@@ -205,8 +206,12 @@
 
   addClickListenersToTags();
 
+  /* GENERATE AUTHOR */
+
   // eslint-disable-next-line no-inner-declarations
   function generateAuthor() {
+    /* [NEW] create new variable allAuthors with empty object */
+    let allAuthors = {};
     //   /* find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
     /* START LOOP for every article */
@@ -217,21 +222,45 @@
       const articleAuthor = article.getAttribute('data-author');
       /* generate HTML of the link */
       const authorLink =
-        '<a href ="#author-' +
+        '<a href="#author-' +
         articleAuthor +
         '"><span>' +
         articleAuthor +
         '</span></a>';
       /* add generated code to html variable */
       html = html + '' + authorLink;
+      /* [NEW] check is this link is NOT already in allAuthors */
+      if (!allAuthors[articleAuthor]) {
+        /* [NEW] add generated code to allTags array */
+        allAuthors[articleAuthor] = 1;
+      } else {
+        allAuthors[articleAuthor]++;
+      }
       /* insert HTML of all the links into the tags wrapper */
       const author = article.querySelector(optArticleAuthorSelector);
       author.innerHTML = html;
       /* END LOOP: for every article */
     }
+    /* [NEW] find list of authors in right column */
+    const authorList = document.querySelector(optAuthorsListSelector);
+    /* [NEW] create variable for all links HTML code*/
+    let allAuthorsHTML = '';
+    /* [NEW] START LOOP: for each author in allAuthors */
+    for (let author in allAuthors) {
+      /* [NEW] generate code of a link and it to allAuthorsHTML */
+      allAuthorsHTML +=
+        '<li><a href="#author-' +
+        author +
+        '"><span>' +
+        author +
+        ' (' +
+        allAuthors[author] +
+        ')</span></a></li> ';
+      /* [NEW] END LOOP: for each author in allAuthors */
+    }
+    /* [NEW] add html from allAuthos to authorList */
+    authorList.innerHTML = allAuthorsHTML;
   }
-
-  /* GENERATE AUTHOR */
 
   generateAuthor();
 
@@ -264,8 +293,8 @@
     for (let authorLink of authorLinks) {
       /* add class active */
       authorLink.classList.add('active');
+      /* END LOOP: for each found tag link */
     }
-    /* END LOOP: for each found tag link */
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-author="' + author + '"]');
   }
